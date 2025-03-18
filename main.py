@@ -1,18 +1,19 @@
-# Create tab content
-tab_contents = [widgets.Output(), widgets.Output()]
+import streamlit as st
+import pandas as pd
 
-# Display the DataFrame in the first tab
-with tab_contents[0]:
-    display(df)
+# Sample DataFrame to display in the first tab
+data = {'Name': ['Alice', 'Bob', 'Charlie'], 'Age': [24, 27, 22], 'City': ['New York', 'Los Angeles', 'Chicago']}
+df = pd.DataFrame(data)
 
-# Add some content to the second tab
-with tab_contents[1]:
-    print("This is the second tab.")
+# Create a tabbed interface
+tab1, tab2 = st.tabs(["DataFrame", "Other Info"])
 
-# Create the tab widget
-tab = widgets.Tab(children=tab_contents)
-tab.set_title(0, 'DataFrame')
-tab.set_title(1, 'Other Info')
+# Add content to the first tab
+with tab1:
+    st.write("DataFrame Content:")
+    st.dataframe(df)  # Displays the DataFrame in an interactive table format
 
-# Display the tabs
-display(tab)
+# Add content to the second tab
+with tab2:
+    st.write("This is the second tab.")
+    st.write("You can add more information or interactive widgets here.")
