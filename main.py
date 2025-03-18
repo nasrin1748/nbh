@@ -1,19 +1,20 @@
 import streamlit as st
-import pandas as pd
 
-# Sample DataFrame to display in the first tab
-data = {'Name': ['Alice', 'Bob', 'Charlie'], 'Age': [24, 27, 22], 'City': ['New York', 'Los Angeles', 'Chicago']}
-df = pd.DataFrame(data)
+# Streamlit Sliders for HSL values
+h = st.slider("Hue", 0, 360, 0)                # Hue: 0 to 360 degrees
+s = st.slider("Saturation (%)", 0, 100, 50)   # Saturation: 0% to 100%
+l = st.slider("Luminance (%)", 0, 100, 50)    # Luminance: 0% to 100%
+a = st.slider("Alpha (Transparency)", 0.0, 1.0, 1.0)  # Alpha: 0.0 (transparent) to 1.0 (opaque)
 
-# Create a tabbed interface
-tab1, tab2 = st.tabs(["DataFrame", "Other Info"])
+# Input text from the user
+text_input = st.text_input("Enter text", value="text")
 
-# Add content to the first tab
-with tab1:
-    st.write("DataFrame Content:")
-    st.dataframe(df)  # Displays the DataFrame in an interactive table format
+# Update text style using HSL and transparency values
+text_style = f"""
+<div style="color: hsla({h}, {s}%, {l}%, {a}); font-size: 20px;">
+    {text_input}
+</div>
+"""
 
-# Add content to the second tab
-with tab2:
-    st.write("This is the second tab.")
-    st.write("You can add more information or interactive widgets here.")
+# Display the styled text
+st.markdown(text_style, unsafe_allow_html=True)
